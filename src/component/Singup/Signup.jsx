@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { auth } from '../../../firebase-init';
 
 const Signup = () => {
-    const [error, setError] = useState('');
+    const [error, setError] = useState(false);
     const [success, setSuccess] = useState('');
 
 const handleLogin = (e) => {
@@ -14,12 +14,13 @@ const handleLogin = (e) => {
     console.log(email, password);
 
     setError('');
+    setSuccess(false);
 
     createUserWithEmailAndPassword(auth, email, password)
     .then(result => {
         const user = result.user;
         console.log(user);
-        setSuccess('User Created Successfully'); 
+        setSuccess(true); 
     })
     .catch(error => {
         console.error(error);
@@ -42,10 +43,10 @@ const handleLogin = (e) => {
                             <input className='btn btn-primary' type="submit" value="Login" />
                         </form>
                         {
-                            error && <p className='text-red-600'>Put at least 6 characters</p>
+                            error && <p className='text-red-600'>{error}</p>
                         }
                         {
-                            success && <p className='text-green-600'>{success}</p>
+                            success && <p className='text-green-600'>User created successfully</p>
                         }
                     </div>
                 </div>
