@@ -16,6 +16,13 @@ const handleLogin = (e) => {
     setError('');
     setSuccess(false);
 
+    // Password validation
+   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+   if (!passwordRegex.test(password)) {
+    setError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+    return;
+   }
+
     createUserWithEmailAndPassword(auth, email, password)
     .then(result => {
         const user = result.user;
